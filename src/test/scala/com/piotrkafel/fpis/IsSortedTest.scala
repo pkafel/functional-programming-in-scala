@@ -1,6 +1,6 @@
-package chapter2
+package com.piotrkafel.fpis
 
-import chapter2.Sorted.isSorted
+import com.piotrkafel.fpis.Chapter2.isSorted
 import org.scalatest.FlatSpec
 
 class IsSortedTest extends FlatSpec {
