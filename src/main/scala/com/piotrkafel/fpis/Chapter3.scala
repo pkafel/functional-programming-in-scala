@@ -27,4 +27,13 @@ object Chapter3 {
     case _::xs => if(n == 0) l
                   else drop(xs, n-1)
   }
+
+  /**
+   * Implementation for exercise 3.5
+   */
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+    case Nil => Nil
+    case x::xs => if(f(x)) dropWhile(xs, f)
+                  else l
+  }
 }
