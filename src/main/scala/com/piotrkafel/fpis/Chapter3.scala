@@ -18,4 +18,13 @@ object Chapter3 {
     case Nil => List(elem)
     case x::xs => elem::xs
   }
+
+  /**
+   * Implementation for exercise 3.4
+   */
+  def drop[A](l: List[A], n: Int): List[A] = l match {
+    case Nil => Nil
+    case _::xs => if(n == 0) l
+                  else drop(xs, n-1)
+  }
 }
