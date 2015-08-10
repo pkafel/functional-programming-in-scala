@@ -1,6 +1,6 @@
 package com.piotrkafel.fpis
 
-import com.piotrkafel.fpis.Chapter3.{dropWhile, drop, setHead, tail}
+import com.piotrkafel.fpis.Chapter3._
 import org.scalatest.FlatSpec
 
 class TailTest extends FlatSpec {
@@ -43,5 +43,17 @@ class TailTest extends FlatSpec {
 
   "dropWhile function" should "should not remove a single element if first element doesnt match predicate" in {
     assert(dropWhile(List(5,6,7), (_: Int) < 3) == List(5,6,7))
+  }
+
+  "init function" should "should return empty list for empty list" in {
+    assert(init(Nil) == Nil)
+  }
+
+  "init function" should "should return empty list for one element list" in {
+    assert(init(List(1)) == Nil)
+  }
+
+  "init function" should "should return list without last element for list with more then one element" in {
+    assert(init(List(1,2,3,4)) == List(1,2,3))
   }
 }

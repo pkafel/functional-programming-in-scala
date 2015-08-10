@@ -36,4 +36,13 @@ object Chapter3 {
     case x::xs => if(f(x)) dropWhile(xs, f)
                   else l
   }
+
+  /**
+   * Implementation for exercise 3.6
+   */
+  def init[A](l: List[A]): List[A] = l match {
+    case Nil => Nil
+    case x::Nil => Nil
+    case x::xs => x::init(xs)
+  }
 }
