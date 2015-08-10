@@ -1,4 +1,4 @@
-package com.piotrkafel.fpis
+package com.piotrkafel.fpis.chapter2
 
 import com.piotrkafel.fpis.Chapter2.isSorted
 import org.scalatest.FlatSpec

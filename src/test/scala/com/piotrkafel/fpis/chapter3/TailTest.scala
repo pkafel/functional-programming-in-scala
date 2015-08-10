@@ -1,4 +1,4 @@
-package com.piotrkafel.fpis
+package com.piotrkafel.fpis.chapter3
 
 import com.piotrkafel.fpis.Chapter3._
 import org.scalatest.FlatSpec
