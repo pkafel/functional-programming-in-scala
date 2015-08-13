@@ -31,9 +31,9 @@ object Chapter3 {
   /**
    * Implementation for exercise 3.5
    */
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+  def dropWhile[A](l: List[A])(f: A => Boolean): List[A] = l match {
     case Nil => Nil
-    case x::xs => if(f(x)) dropWhile(xs, f)
+    case x::xs => if(f(x)) dropWhile(xs)(f)
                   else l
   }
 
