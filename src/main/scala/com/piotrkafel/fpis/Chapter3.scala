@@ -50,7 +50,7 @@ object Chapter3 {
   /**
    * Implementation for exercise 3.9
    */
-  def length[A](l: List[A]): Int = l.foldRight(0)((_, y) => y + 1)
+  def foldRightLength[A](l: List[A]): Int = l.foldRight(0)((_, y) => y + 1)
 
   /**
    * Implementation for exercise 3.10
@@ -60,4 +60,19 @@ object Chapter3 {
       case Nil => z
       case x::xs => foldLeft(xs, f(z, x)) (f)
   }
+
+  /**
+   * Implementation for exercise 3.11
+   */
+  def sum[A](l: List[Int]): Int = foldLeft(l, 0)((x, y) => x + y)
+
+  /**
+   * Implementation for exercise 3.11
+   */
+  def product[A](l: List[Int]): Int = foldLeft(l, 1)((x, y) => x * y)
+
+  /**
+   * Implementation for exercise 3.11
+   */
+  def foldLeftLength[A](l: List[Int]): Int = foldLeft(l, 0)((x, _) => x + 1)
 }
