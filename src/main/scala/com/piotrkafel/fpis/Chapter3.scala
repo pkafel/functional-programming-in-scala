@@ -64,15 +64,20 @@ object Chapter3 {
   /**
    * Implementation for exercise 3.11
    */
-  def sum[A](l: List[Int]): Int = foldLeft(l, 0)((x, y) => x + y)
+  def sum(l: List[Int]): Int = foldLeft(l, 0)((x, y) => x + y)
 
   /**
    * Implementation for exercise 3.11
    */
-  def product[A](l: List[Int]): Int = foldLeft(l, 1)((x, y) => x * y)
+  def product(l: List[Int]): Int = foldLeft(l, 1)((x, y) => x * y)
 
   /**
    * Implementation for exercise 3.11
    */
-  def foldLeftLength[A](l: List[Int]): Int = foldLeft(l, 0)((x, _) => x + 1)
+  def foldLeftLength[A](l: List[A]): Int = foldLeft(l, 0)((x, _) => x + 1)
+
+  /**
+   * Implementation for exercise 3.12
+   */
+  def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((x, y) => y::x)
 }
