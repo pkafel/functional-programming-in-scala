@@ -45,4 +45,9 @@ object Chapter3 {
     case x::Nil => Nil
     case x::xs => x::init(xs)
   }
+
+  /**
+   * Implementation for exercise 3.9
+   */
+  def length[A](l: List[A]): Int = l.foldRight(0)((_, y) => y + 1)
 }
