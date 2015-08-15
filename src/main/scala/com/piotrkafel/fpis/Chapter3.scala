@@ -1,5 +1,6 @@
 package com.piotrkafel.fpis
 
+import scala.annotation.tailrec
 
 object Chapter3 {
 
@@ -50,4 +51,13 @@ object Chapter3 {
    * Implementation for exercise 3.9
    */
   def length[A](l: List[A]): Int = l.foldRight(0)((_, y) => y + 1)
+
+  /**
+   * Implementation for exercise 3.10
+   */
+  @tailrec
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+      case Nil => z
+      case x::xs => foldLeft(xs, f(z, x)) (f)
+  }
 }
