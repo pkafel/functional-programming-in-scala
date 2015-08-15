@@ -80,4 +80,14 @@ object Chapter3 {
    * Implementation for exercise 3.12
    */
   def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((x, y) => y::x)
+
+  /**
+   * Implementation for exercise 3.13
+   */
+  def foldLeftByFoldRight[A,B](l: List[A], b: B)(f: (B, A) => B): B = l.foldRight((bb: B) => bb)((x,y) => z => y(f(z, x)))(b)
+
+  /**
+   * Implementation for exercise 3.13
+   */
+  def foldRightByFoldLeft[A,B](l: List[A], b: B)(f: (A, B) => B): B = foldLeft(reverse(l), b)((x, y) => f(y, x))
 }
