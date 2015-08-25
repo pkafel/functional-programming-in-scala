@@ -90,4 +90,9 @@ object Chapter3 {
    * Implementation for exercise 3.13
    */
   def foldRightByFoldLeft[A,B](l: List[A], b: B)(f: (A, B) => B): B = foldLeft(reverse(l), b)((x, y) => f(y, x))
+
+  /**
+   * Implementation for exercise 3.14
+   */
+  def append[A](l1: List[A], l2: List[A]): List[A] = l1.foldRight(l2)((x,y) => x::y)
 }
