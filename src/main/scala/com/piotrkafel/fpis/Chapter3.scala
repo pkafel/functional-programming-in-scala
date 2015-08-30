@@ -95,4 +95,9 @@ object Chapter3 {
    * Implementation for exercise 3.14
    */
   def append[A](l1: List[A], l2: List[A]): List[A] = l1.foldRight(l2)((x,y) => x::y)
+
+  /**
+   * Implementation for exercise 3.15
+   */
+  def flatten[A](l: List[List[A]]): List[A] = l.foldLeft(List[A]())((x,y) => append(x,y))
 }
