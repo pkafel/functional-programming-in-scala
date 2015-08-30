@@ -100,4 +100,14 @@ object Chapter3 {
    * Implementation for exercise 3.15
    */
   def flatten[A](l: List[List[A]]): List[A] = l.foldLeft(List[A]())((x,y) => append(x,y))
+
+  /**
+   * Implementation for exercise 3.16
+   */
+  def addOne(l: List[Int]): List[Int] = l.foldRight(List[Int]())((x,y) => (x+1)::y)
+
+  /**
+   * Implementation for exercise 3.17
+   */
+  def toStringList(l: List[Double]): List[String] = l.foldRight(List[String]())((x,y) => (x.toString)::y)
 }
