@@ -104,10 +104,15 @@ object Chapter3 {
   /**
    * Implementation for exercise 3.16
    */
-  def addOne(l: List[Int]): List[Int] = l.foldRight(List[Int]())((x,y) => (x+1)::y)
+  def addOne(l: List[Int]): List[Int] = map(l)(_ + 1)
 
   /**
    * Implementation for exercise 3.17
    */
-  def toStringList(l: List[Double]): List[String] = l.foldRight(List[String]())((x,y) => (x.toString)::y)
+  def toStringList(l: List[Double]): List[String] = map(l)(_.toString)
+
+  /**
+   * Implementation for exercise 3.18
+   */
+  def map[A,B](as: List[A])(f: A => B): List[B] = as.foldRight(List[B]())((x,y) => f(x)::y)
 }
