@@ -115,4 +115,14 @@ object Chapter3 {
    * Implementation for exercise 3.18
    */
   def map[A,B](as: List[A])(f: A => B): List[B] = as.foldRight(List[B]())((x,y) => f(x)::y)
+
+  /**
+   * Implementation for exercise 3.19
+   */
+  def filter[A,B](as: List[A])(f: A => Boolean): List[A] = as.foldRight(List[A]())((x,y) => if (f(x)) x::y else y)
+
+  /**
+   * Implementation for exercise 3.19
+   */
+  def removeOdds(as: List[Int]): List[Int] = filter(as)(x => x%2 == 0)
 }
