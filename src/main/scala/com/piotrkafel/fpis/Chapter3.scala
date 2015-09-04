@@ -125,4 +125,9 @@ object Chapter3 {
    * Implementation for exercise 3.19
    */
   def removeOdds(as: List[Int]): List[Int] = filter(as)(x => x%2 == 0)
+
+  /**
+   * Implementation for exercise 3.20
+   */
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = flatten(map(as)(f))
 }
