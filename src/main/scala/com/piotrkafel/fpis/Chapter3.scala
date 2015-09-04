@@ -135,4 +135,14 @@ object Chapter3 {
    * Implementation for exercise 3.21
    */
   def filterByFlatMap[A](as: List[A])(f: A => Boolean): List[A] = flatMap(as)((x) => if (f(x)) List(x) else Nil)
+
+  /**
+   * Implementation for exercise 3.21
+   */
+  def sumTwoLists(l1: List[Int], l2: List[Int]): List[Int] = (l1, l2) match {
+    case (x::xs, y::ys) => (x+y)::sumTwoLists(xs, ys)
+    case (Nil, ys) => ys
+    case (xs, Nil) => xs
+    case _ => Nil
+  }
 }
