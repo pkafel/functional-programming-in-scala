@@ -119,7 +119,7 @@ object Chapter3 {
   /**
    * Implementation for exercise 3.19
    */
-  def filter[A,B](as: List[A])(f: A => Boolean): List[A] = as.foldRight(List[A]())((x,y) => if (f(x)) x::y else y)
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = as.foldRight(List[A]())((x,y) => if (f(x)) x::y else y)
 
   /**
    * Implementation for exercise 3.19
@@ -130,4 +130,9 @@ object Chapter3 {
    * Implementation for exercise 3.20
    */
   def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = flatten(map(as)(f))
+
+  /**
+   * Implementation for exercise 3.21
+   */
+  def filterByFlatMap[A](as: List[A])(f: A => Boolean): List[A] = flatMap(as)((x) => if (f(x)) List(x) else Nil)
 }
