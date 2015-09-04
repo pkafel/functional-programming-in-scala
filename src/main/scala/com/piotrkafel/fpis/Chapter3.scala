@@ -137,12 +137,15 @@ object Chapter3 {
   def filterByFlatMap[A](as: List[A])(f: A => Boolean): List[A] = flatMap(as)((x) => if (f(x)) List(x) else Nil)
 
   /**
-   * Implementation for exercise 3.21
+   * Implementation for exercise 3.22
    */
-  def sumTwoLists(l1: List[Int], l2: List[Int]): List[Int] = (l1, l2) match {
-    case (x::xs, y::ys) => (x+y)::sumTwoLists(xs, ys)
-    case (Nil, ys) => ys
-    case (xs, Nil) => xs
+  def sumTwoLists(l1: List[Int], l2: List[Int]): List[Int] = zipWith(l1, l2)((x,y) => x + y)
+
+  /**
+   * Implementation for exercise 3.23
+   */
+  def zipWith[A, B](l1: List[A], l2: List[A])(f: (A, A) => B): List[B] = (l1, l2) match {
+    case (x::xs, y::ys) => f(x,y)::zipWith(xs, ys)(f)
     case _ => Nil
   }
 }
