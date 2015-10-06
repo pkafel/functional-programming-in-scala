@@ -148,4 +148,20 @@ object Chapter3 {
     case (x::xs, y::ys) => f(x,y)::zipWith(xs, ys)(f)
     case _ => Nil
   }
+
+  /**
+   * Implementation for exercise 3.24
+   */
+  def hasSubsequence[A](supList: List[A], subList: List[A]): Boolean = {
+    def isSubList[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+      case (x::xs, y::ys) => if(x == y) isSubList(xs, ys) else false
+      case (_, Nil) => true
+      case _ => false
+    }
+
+    (supList, subList) match {
+      case (x::xs, y::ys) => if(x == y && isSubList(xs, ys)) true else hasSubsequence(xs, subList)
+      case _ => false
+    }
+  }
 }
