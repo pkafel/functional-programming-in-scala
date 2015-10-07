@@ -153,7 +153,7 @@ object Chapter3 {
    * Implementation for exercise 3.24
    */
   def hasSubsequence[A](supList: List[A], subList: List[A]): Boolean = {
-    def isSubList[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+    def isSubList(sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
       case (x::xs, y::ys) => if(x == y) isSubList(xs, ys) else false
       case (_, Nil) => true
       case _ => false
@@ -163,5 +163,17 @@ object Chapter3 {
       case (x::xs, y::ys) => if(x == y && isSubList(xs, ys)) true else hasSubsequence(xs, subList)
       case _ => false
     }
+  }
+
+  sealed trait Tree[+A]
+  case class Leaf[A](value: A) extends Tree[A]
+  case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
+
+  /**
+   * Implementation for exercise 3.25
+   */
+  def size[A](t: Tree[A]): Int = t match {
+    case Leaf(_) => 1
+    case Branch(l,r) => size(l) + size(r) + 1
   }
 }
