@@ -176,4 +176,12 @@ object Chapter3 {
     case Leaf(_) => 1
     case Branch(l,r) => size(l) + size(r) + 1
   }
+
+  /**
+   * Implementation for exercise 3.26
+   */
+  def maximum(t: Tree[Int]): Int = t match {
+    case Leaf(v) => v
+    case Branch(l,r) => maximum(l).max(maximum(r))
+  }
 }
