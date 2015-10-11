@@ -184,4 +184,12 @@ object Chapter3 {
     case Leaf(v) => v
     case Branch(l,r) => maximum(l).max(maximum(r))
   }
+
+  /**
+   * Implementation for exercise 3.27
+   */
+  def depth[A](t: Tree[A]): Int = t match {
+    case Leaf(_) => 1
+    case Branch(l,r) => depth(l).max(depth(r)) + 1
+  }
 }
