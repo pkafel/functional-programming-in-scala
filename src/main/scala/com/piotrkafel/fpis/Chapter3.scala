@@ -192,4 +192,12 @@ object Chapter3 {
     case Leaf(_) => 1
     case Branch(l,r) => depth(l).max(depth(r)) + 1
   }
+
+  /**
+   * Implementation for exercise 3.28
+   */
+  def treeMap[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
+    case Leaf(v) => Leaf(f(v))
+    case Branch(l,r) => Branch(treeMap(l)(f), treeMap(r)(f))
+  }
 }
