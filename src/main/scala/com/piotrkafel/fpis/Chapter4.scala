@@ -43,4 +43,11 @@ object Chapter4 {
       .flatMap(x => MySome(xs.map(v => pow(v - x, 2)).reduce((v1, v2) => v1 + v2)))
       .map(v => v / xs.length)
   }
+
+  /**
+   * Implementation for exercise 4.3
+   */
+  def map2[A,B,C](a: MyOption[A], b: MyOption[B])(f: (A, B) => C): MyOption[C] =
+    a.flatMap(aValue =>
+      b.map(bValue => f(aValue,bValue)))
 }
