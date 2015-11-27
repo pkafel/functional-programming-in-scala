@@ -36,7 +36,7 @@ object Chapter4 {
 
     def mean(xs: Seq[Double]): MyOption[Double] = {
       if(xs.isEmpty) return MyNone
-      else MySome(xs.sum / xs.length);
+      else MySome(xs.sum / xs.length)
     }
 
     mean(xs)
@@ -50,4 +50,10 @@ object Chapter4 {
   def map2[A,B,C](a: MyOption[A], b: MyOption[B])(f: (A, B) => C): MyOption[C] =
     a.flatMap(aValue =>
       b.map(bValue => f(aValue,bValue)))
+
+  /**
+   * Implementation for exercise 4.4
+   */
+  def sequence[A](a: List[MyOption[A]]): MyOption[List[A]] =
+    a.foldRight[MyOption[List[A]]] (MySome(List[A]())) ((elem, result) => map2(elem, result) ((e,r) => e::r))
 }
