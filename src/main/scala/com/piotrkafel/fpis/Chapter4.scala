@@ -56,4 +56,15 @@ object Chapter4 {
    */
   def sequence[A](a: List[MyOption[A]]): MyOption[List[A]] =
     a.foldRight[MyOption[List[A]]] (MySome(List[A]())) ((elem, result) => map2(elem, result) ((e,r) => e::r))
+
+  /**
+   * Implementation for exercise 4.5
+   */
+  def traverse[A, B](a: List[A])(f: A => MyOption[B]): MyOption[List[B]] =
+    a.foldRight[MyOption[List[B]]] (MySome(List[B]())) ((elem, result) => map2(f(elem), result) ((e,r) => e::r))
+
+  /**
+   * Implementation for exercise 4.5
+   */
+  def sequenceByTraverse[A](a: List[MyOption[A]]): MyOption[List[A]] = traverse(a)(e => e)
 }
