@@ -67,4 +67,32 @@ object Chapter4 {
    * Implementation for exercise 4.5
    */
   def sequenceByTraverse[A](a: List[MyOption[A]]): MyOption[List[A]] = traverse(a)(e => e)
+
+  /**
+   * Implementation for exercise 4.6
+   */
+  sealed trait MyEither[+E,+A] {
+
+    def map[B](f: A => B): MyEither[E, B] = this match {
+      case MyLeft(e) => MyLeft(e)
+      case MyRight(a) => MyRight(f(a))
+    }
+
+    def flatMap[EE >: E, B](f: A => MyEither[EE, B]): MyEither[EE, B] = this match {
+      case MyLeft(e) => MyLeft(e)
+      case MyRight(a) => f(a)
+    }
+
+    def orElse[EE >: E,B >: A](b: => MyEither[EE, B]): MyEither[EE, B] = this match {
+      case MyLeft(e) => b
+      case MyRight(a) => this
+    }
+
+    def map2[EE >: E, B, C](b: MyEither[EE, B])(f: (A, B) => C): MyEither[EE, C] =
+      flatMap(v => b.map(vv => f(v, vv)))
+  }
+
+  case class MyLeft[+E](value: E) extends MyEither[E, Nothing]
+  case class MyRight[+A](value: A) extends MyEither[Nothing, A]
+
 }

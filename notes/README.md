@@ -1,5 +1,10 @@
 #Chapter 4
 
+## Option vs Either
+
+* `Option` is sufficient when knowing whether a failure occurred is all we care about
+* `Either` data type represents, in a very general way, values that can be one of two things. When we use it to indicate success or failure, by convention the Right constructor is reserved for the success case and Left is used for failure.
+
 ## Exceptions as a way of handling errors
 
 * exceptions break referential transparency and introduce context dependence
