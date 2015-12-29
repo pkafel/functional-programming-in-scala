@@ -35,12 +35,12 @@ object Chapter4 {
   def variance(xs: Seq[Double]): MyOption[Double] = {
 
     def mean(xs: Seq[Double]): MyOption[Double] = {
-      if(xs.isEmpty) return MyNone
+      if(xs.isEmpty) MyNone
       else MySome(xs.sum / xs.length)
     }
 
     mean(xs)
-      .flatMap(x => MySome(xs.map(v => pow(v - x, 2)).reduce((v1, v2) => v1 + v2)))
+      .flatMap(x => MySome(xs.map(v => pow(v - x, 2)).sum))
       .map(v => v / xs.length)
   }
 
@@ -54,7 +54,7 @@ object Chapter4 {
   /**
    * Implementation for exercise 4.4
    */
-  def sequence[A](a: List[MyOption[A]]): MyOption[List[A]] =
+  def sequenceEither[A](a: List[MyOption[A]]): MyOption[List[A]] =
     a.foldRight[MyOption[List[A]]] (MySome(List[A]())) ((elem, result) => map2(elem, result) ((e,r) => e::r))
 
   /**
@@ -95,4 +95,15 @@ object Chapter4 {
   case class MyLeft[+E](value: E) extends MyEither[E, Nothing]
   case class MyRight[+A](value: A) extends MyEither[Nothing, A]
 
+  /**
+   * Implementation for exercise 4.7
+   */
+  def traverseEither[E, A, B](as: List[A])(f: A => MyEither[E, B]): MyEither[E, List[B]] = {
+    as.foldRight[MyEither[E, List[B]]] (MyRight(List[B]())) ((elem, result) => f(elem).map2(result)((e,r) => e::r) )
+  }
+
+  /**
+   * Implementation for exercise 4.7
+   */
+  def sequence[E, A](es: List[MyEither[E, A]]): MyEither[E, List[A]] = traverseEither(es)(e => e)
 }
