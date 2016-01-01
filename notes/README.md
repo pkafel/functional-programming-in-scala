@@ -88,6 +88,117 @@ def curry[A,B,C](f: (A, B) => C): A => (B => C)
 def uncurry[A,B,C](f: A => B => C): (A, B) => C
 ```
 
+#Chapter 3
+
+Functional data structures are by definition immutable !
+
+## Trait
+
+An abstract interface that may optionally contains implementations of some methods.
+
+## Sealed trait
+
+All implementations of the trait must be declared in this file.
+
+## Case classes \ objects
+
+Regular classes which export their constructor parameters and which provide a recursive decomposition mechanism via pattern matching. Example:
+
+```scala
+sealed trait List[+A]
+case object Nil extends List[Nothing]
+case class Cons[+A](head: A, tail: List[A]) extends List[A]
+```
+
+## Variance
+
+In the declaration trait `List[+A]`, the _+_ in front of the type parameter _A_ is a variance annotation that signals that _A_ is a covariant or “positive” parameter of List. This means that, for instance, `List[Dog]` is considered a subtype of `List[Animal]`, assuming `Dog` is a subtype of `Animal`. More generally, for all types _X_ and _Y_, if _X_ is a subtype of _Y_, then _List[X]_ is a subtype of _List[Y]_.
+
+## _Nothing_ type
+
+Subtype of all types.
+
+## Pattern matching
+
+Pattern matching works a bit like a fancy switch statement that may descend into the structure of the expression it examines and extract subexpressions of that structure. It’s introduced with an expression (the target or scrutinee) like _ds_, followed by the keyword _match_, and a {}-wrapped sequence of cases. Each _case_ in the match consists of a pattern (like `Cons(x,xs)`) to the left of the _=>_ and a result (like `x * product(xs)`) to the right of the _=>_. If the target matches the pattern in a case, the result of that case becomes the result of the entire match expression. If multiple pat- terns match the target, Scala chooses the first matching case. Example:
+
+```scala
+def product(ds: List[Double]): Double = ds match { 
+  case Nil => 1.0
+  case Cons(0.0, _) => 0.0
+  case Cons(x,xs) => x * product(xs)
+}
+```
+
+## Companion objects
+
+We’ll often declare a companion object in addition to our data type and its data constructors. This is just an object with the same name as the data type where we put various convenience functions for creating or working with values of the data type.
+
+If, for instance, we wanted a function `def fill[A](n: Int, a: A): List[A]` that created a List with n copies of the element _a_, the List companion object would be a good place for it. Companion objects are more of a convention in Scala. We could have called this module _Foo_ if we wanted, but calling it _List_ makes it clear that the module contains functions relevant to working with lists.
+
+## Variadic functions
+
+The function apply in the object List is a variadic function, meaning it accepts zero or more arguments of type _A_:
+
+```scala
+def apply[A](as: A*): List[A] =
+  if (as.isEmpty) Nil
+  else Cons(as.head, apply(as.tail: _*))
+```
+
+For data types, it’s a common idiom to have a variadic apply method in the companion object to conveniently construct instances of the data type. By calling this function apply and placing it in the companion object, we can invoke it with syntax like `List(1,2,3,4)` or `List("hi","bye")`, with as many values as we want separated by commas.
+
+## Type inference
+
+When we have the following function:
+
+```scala
+def dropWhile[A](l: List[A], f: A => Boolean): List[A]
+```
+
+we could call it in the following way:
+
+```scala
+dropWhile(xs, (x: Int) => x < 4)
+```
+
+If we want to skip typing variable in anonymous function we need to curry the function:
+
+```scala
+def dropWhile[A](l: List[A]) (f: A => Boolean): List[A]
+```
+
+This is an unfortunate restriction of the Scala compiler; other functional languages like Haskell and OCaml provide complete inference, meaning type annotations are almost never required.
+
+## Underscore notation for anonymous functions
+
+The anonymous function `(x,y) => x + y` can be written as `_ + _` in situations where the types of _x_ and _y_ could be inferred by Scala. This is a useful shorthand in cases where the function parameters are mentioned just once in the body of the function. Each underscore in an anonymous function expression like `_ + _` introduces a new (unnamed) function parameter and references it. Arguments are introduced in left-to-right order. Example:
+
+```scala
+_ + _
+_ * 2
+_.head
+```
+
+## Algebraic data type
+
+List is just one example of what’s called an _algebraic data type_ (ADT). An ADT is just a data type defined by one or more data constructors, each of which may contain zero or more arguments. We say that the data type is the sum or union of its data constructors, and each data constructor is the product of its arguments, hence the name algebraic data type.
+
+One might object that algebraic data types violate encapsulation by making public the internal representation of a type. In FP, we approach concerns about encapsulation differently — we don’t typically have delicate mutable state which could lead to bugs or violation of invariants if exposed publicly. Exposing the data constructors of a type is often fine, and the decision to do so is approached much like any other decision about what the public API of a data type should be.
+
+## Tuple
+
+Pairs and tuples of other arities are also algebraic data types. They work just like the ADTs we’ve been writing here, but have special syntax:
+
+```scala
+val p = ("Bob", 42)
+val x = p._1
+val y = p._2
+val z = p match { case (a,b) => b }
+```
+
+In this example, `("Bob", 42)` is a pair whose type is `(String,Int)`, which is syntactic sugar for `Tuple2[String,Int]`. We can extract the first or second element of this pair (a _Tuple3_ will have a method _3, and so on), and we can pattern match on this pair much like any other case class. Higher arity tuples work similarly.
+
 #Chapter 4
 
 ## _Option_ vs _Either_
