@@ -1,3 +1,32 @@
+#Chapter 1
+
+## Referential transparency
+
+An expression e is referentially transparent if, for all programs p, all occurrences of e in p can be replaced by the result of evaluating e without affecting the meaning of p.
+
+## Function purity
+
+A function f is pure if the expression f(x) is referentially transparent for all referen- tially transparent x.
+
+## Substitution model
+
+### Referential transparent example
+
+```scala
+val x = "Hello, World"
+val r1 = x.reverse
+val r2 = x.reverse
+```
+
+### Not Referential transparent example
+
+```scala
+val x = new StringBuilder("Hello")
+val y = x.append(", World")
+val r1 = y.toString
+val r2 = y.toString
+```
+
 #Chapter 4
 
 ## Option vs Either
