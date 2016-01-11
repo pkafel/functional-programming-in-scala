@@ -256,3 +256,20 @@ def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] =
 ```
 
 A for-comprehension consists of a sequence of bindings, like aa <- a, followed by a yield after the closing brace, where the yield may make use of any of the values on the left side of any previous <- binding. The compiler desugars the bindings to flatMap calls, with the final binding and yield being converted to a call to map.
+
+#Chapter 5
+
+## Lazy evaluation of arguments
+
+```scala
+def maybeTwice(b: Boolean, i: => Int) = if (b) i+i else 0
+```
+
+Worth noting that `i` will be evaluated two times. If you want to have it being evaluated only once you need to assign it to `lazy` variable.
+
+```scala
+def maybeTwice2(b: Boolean, i: => Int) = {
+  lazy val j = i
+  if (b) j+j else 0
+}
+```
