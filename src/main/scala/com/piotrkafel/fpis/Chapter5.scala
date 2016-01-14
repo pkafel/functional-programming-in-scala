@@ -22,12 +22,21 @@ object Chapter5 {
     }
 
     /**
-     * Implementation for exercise 5.3
+     * Implementation for exercise 5.2
      */
     def drop(n: Int): Stream[A] = this match {
       case Empty => Stream.empty
       case Cons(h, t) => if(n > 0) t().drop(n-1)
                          else t()
+    }
+
+    /**
+     * Implementation for exercise 5.3
+     */
+    def takeWhile(p: A => Boolean): Stream[A] = this match {
+      case Empty => Stream.empty
+      case Cons(h, t) => if(p(h())) Stream.cons(h(), t().takeWhile(p))
+                         else Stream.empty
     }
   }
 
