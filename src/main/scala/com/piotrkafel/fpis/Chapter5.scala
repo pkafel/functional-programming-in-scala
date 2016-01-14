@@ -38,6 +38,23 @@ object Chapter5 {
       case Cons(h, t) => if(p(h())) Stream.cons(h(), t().takeWhile(p))
                          else Stream.empty
     }
+
+    def foldRight[B](z: => B)(f: (A, => B) => B): B = this match {
+      case Cons(h, t) => f(h(), t().foldRight(z)(f))
+      case _ => z
+    }
+
+    def exists(p: A => Boolean): Boolean = foldRight(false)((a, b) => p(a) || b)
+
+    /**
+     * Implementation for exercise 5.4
+     */
+    def forAll(p: A => Boolean): Boolean = foldRight(true)((a, b) => p(a) && b)
+
+    /**
+     * Implementation for exercise 5.5
+     */
+    def takeWhileByFoldRight(p: A => Boolean): Stream[A] = foldRight(Stream.empty[A])((a,b) => if(p(a)) Stream.cons(a, b) else b)
   }
 
   case object Empty extends Stream[Nothing]
