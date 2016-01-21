@@ -55,6 +55,11 @@ object Chapter5 {
      * Implementation for exercise 5.5
      */
     def takeWhileByFoldRight(p: A => Boolean): Stream[A] = foldRight(Stream.empty[A])((a,b) => if(p(a)) Stream.cons(a, b) else b)
+
+    /**
+     * Implementation for exercise 5.6
+     */
+    def headOption: Option[A] = foldRight(Option.empty[A])((a,b) => Option.apply(a))
   }
 
   case object Empty extends Stream[Nothing]
