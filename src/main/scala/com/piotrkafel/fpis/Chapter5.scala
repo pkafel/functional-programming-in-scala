@@ -65,6 +65,11 @@ object Chapter5 {
      * Implementation for exercise 5.7
      */
     def map[B](f: A => B): Stream[B] = foldRight(Stream.empty[B])((a,b) => Stream.cons(f(a), b))
+
+    /**
+     * Implementation for exercise 5.7
+     */
+    def filter(f: A => Boolean): Stream[A] = foldRight(Stream.empty[A])((a,b) => if(f(a)) Stream.cons(a, b) else b.filter(f))
   }
 
   case object Empty extends Stream[Nothing]
