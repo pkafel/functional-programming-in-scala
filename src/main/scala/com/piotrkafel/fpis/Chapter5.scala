@@ -75,6 +75,11 @@ object Chapter5 {
      * Implementation for exercise 5.7
      */
     def append[B>:A](s: => Stream[B]): Stream[B] = foldRight(s)((a,b) => Stream.cons(a,b))
+
+    /**
+     * Implementation for exercise 5.7
+     */
+    def flatMap[B](f: A => Stream[B]): Stream[B] = foldRight(Stream.empty[B])((a,b) => f(a).append(b))
   }
 
   case object Empty extends Stream[Nothing]
