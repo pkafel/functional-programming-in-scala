@@ -70,6 +70,11 @@ object Chapter5 {
      * Implementation for exercise 5.7
      */
     def filter(f: A => Boolean): Stream[A] = foldRight(Stream.empty[A])((a,b) => if(f(a)) Stream.cons(a, b) else b.filter(f))
+
+    /**
+     * Implementation for exercise 5.7
+     */
+    def append[B>:A](s: => Stream[B]): Stream[B] = foldRight(s)((a,b) => Stream.cons(a,b))
   }
 
   case object Empty extends Stream[Nothing]
