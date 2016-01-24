@@ -1,7 +1,7 @@
 package com.piotrkafel.fpis.chapter5
 
+import com.piotrkafel.fpis.Chapter5._
 import org.scalatest.FlatSpec
-
 
 class ToListTest extends FlatSpec {
 

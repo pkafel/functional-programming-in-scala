@@ -1,5 +1,6 @@
 package com.piotrkafel.fpis.chapter5
 
+import com.piotrkafel.fpis.Chapter5._
 import org.scalatest.FlatSpec
 
 class DropTest extends FlatSpec {
@@ -9,7 +10,7 @@ class DropTest extends FlatSpec {
   }
 
   "Stream.drop function" should "return last n elements of stream" in {
-    assert(Stream.apply(1,3,5,7).drop(2) == Stream.apply(5,7))
+    assert(Stream.apply(1,3,5,7).drop(2).toList == List(5,7))
   }
 
   "Stream.drop function" should "return empty stream if n bigger than number of elements in stream" in {

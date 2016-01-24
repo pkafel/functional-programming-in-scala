@@ -27,7 +27,7 @@ object Chapter5 {
     def drop(n: Int): Stream[A] = this match {
       case Empty => Stream.empty
       case Cons(h, t) => if(n > 0) t().drop(n-1)
-                         else t()
+                         else this
     }
 
     /**
@@ -60,6 +60,11 @@ object Chapter5 {
      * Implementation for exercise 5.6
      */
     def headOption: Option[A] = foldRight(Option.empty[A])((a,b) => Option.apply(a))
+
+    /**
+     * Implementation for exercise 5.7
+     */
+    def map[B](f: A => B): Stream[B] = foldRight(Stream.empty[B])((a,b) => Stream.cons(f(a), b))
   }
 
   case object Empty extends Stream[Nothing]
