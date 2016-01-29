@@ -97,5 +97,10 @@ object Chapter5 {
 
     def apply[A](as: A*): Stream[A] =
       if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
+
+    /**
+     * Implementation for exercise 5.8
+     */
+    def constant[A](a: A): Stream[A] = cons(a, constant(a))
   }
 }
