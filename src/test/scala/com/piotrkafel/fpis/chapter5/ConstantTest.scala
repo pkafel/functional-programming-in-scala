@@ -5,7 +5,7 @@ import org.scalatest.FlatSpec
 
 class ConstantTest extends FlatSpec {
 
-  "Stream.constant function" should "return infinite strean" in {
+  "Stream.constant function" should "return infinite stream" in {
     assert(Stream.constant(1).take(3).toList == List(1,1,1))
   }
 }

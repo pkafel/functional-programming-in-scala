@@ -102,5 +102,10 @@ object Chapter5 {
      * Implementation for exercise 5.8
      */
     def constant[A](a: A): Stream[A] = cons(a, constant(a))
+
+    /**
+     * Implementation for exercise 5.9
+     */
+    def from(n: Int): Stream[Int] = cons(n, from(n + 1))
   }
 }
