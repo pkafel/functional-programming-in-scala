@@ -107,5 +107,13 @@ object Chapter5 {
      * Implementation for exercise 5.9
      */
     def from(n: Int): Stream[Int] = cons(n, from(n + 1))
+
+    /**
+     * Implementation for exercise 5.10
+     */
+    def fib: Stream[Int] = {
+      def gen(current: Int, next: Int): Stream[Int] = cons(current, gen(next, next + current))
+      gen(0, 1)
+    }
   }
 }
