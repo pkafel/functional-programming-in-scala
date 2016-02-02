@@ -115,5 +115,13 @@ object Chapter5 {
       def gen(current: Int, next: Int): Stream[Int] = cons(current, gen(next, next + current))
       gen(0, 1)
     }
+
+    /**
+     * Implementation for exercise 5.11
+     */
+    def unfold[A, S](s: S)(f: S => Option[(A,S)]): Stream[A] = f(s) match {
+      case None => empty
+      case Some((value, state)) => cons(value, unfold(state)(f))
+    }
   }
 }
