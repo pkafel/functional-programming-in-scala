@@ -123,5 +123,25 @@ object Chapter5 {
       case None => empty
       case Some((value, state)) => cons(value, unfold(state)(f))
     }
+
+    /**
+     * Implementation for exercise 5.12
+     */
+    def constantByUnfold[A](a: A): Stream[A] = unfold(a)(x => Some(x, x))
+
+    /**
+     * Implementation for exercise 5.12
+     */
+    def fromByUnfold(n: Int): Stream[Int] = unfold(n)(x => Some(x, x+1))
+
+    /**
+     * Implementation for exercise 5.12
+     */
+    def fibByUnfold: Stream[Int] = unfold((0,1))(x => Some(x._1, (x._2, x._1 + x._2)))
+
+    /**
+     * Implementation for exercise 5.12
+     */
+    def ones: Stream[Int] = unfold(1)(x => Some(x, x))
   }
 }
